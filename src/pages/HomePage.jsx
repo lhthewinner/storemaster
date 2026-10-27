@@ -75,54 +75,112 @@ export default function HomePage() {
     return result;
   }, [products, selectedCategory, searchTerm, sortBy]);
 
+  const scrollToCatalogue = () => {
+    const el = document.getElementById('catalogue-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleShowPromos = () => {
+    // Sélectionne une catégorie populaire ou trie par note
+    setSortBy('rating-desc');
+    scrollToCatalogue();
+  };
+
   return (
     <div className="space-y-8">
-      {/* Hero Banner */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-700 via-indigo-600 to-purple-700 text-white p-6 sm:p-10 shadow-lg shadow-indigo-500/20">
-        <div className="relative z-10 max-w-2xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-white/15 backdrop-blur-sm border border-white/20">
-            <ShoppingBag className="w-3.5 h-3.5" />
-            Boutique Démo React SPA
+      {/* Hero Banner conforme au design demandé */}
+      <section
+        className="relative overflow-hidden rounded-3xl p-6 sm:p-10 lg:p-12 text-white shadow-xl shadow-indigo-500/15"
+        style={{
+          background: 'linear-gradient(135deg, #2446df 0%, #4764f6 38%, #7e8cf7 70%, #d8c7fe 100%)',
+        }}
+      >
+        {/* Main 2-columns layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center relative z-10">
+          {/* Colonne de gauche : Titre, description et boutons CTA */}
+          <div className="lg:col-span-7 space-y-5">
+            {/* Badge pilule */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-md border border-white/25 text-white shadow-xs">
+              <ShoppingBag className="w-3.5 h-3.5 text-white" />
+              <span>Boutique Démo React SPA</span>
+            </div>
+
+            {/* Titre principal */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-[1.12] text-white">
+              Explorez notre collection <br />
+              tendance & tech.
+            </h1>
+
+            {/* Sous-titre */}
+            <p className="text-white/90 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
+              Découvrez les meilleurs produits sélectionnés pour vous. Filtrez, explorez et gérez votre panier en temps réel !
+            </p>
+
+            {/* Boutons d'action */}
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              <button
+                type="button"
+                onClick={scrollToCatalogue}
+                className="px-6 py-3.5 rounded-full bg-white text-indigo-700 hover:bg-indigo-50 text-sm sm:text-base font-bold shadow-lg shadow-black/10 active:scale-95 transition-all duration-200 cursor-pointer"
+              >
+                Découvrir le Catalogue
+              </button>
+
+              <button
+                type="button"
+                onClick={handleShowPromos}
+                className="px-4 py-3 text-sm sm:text-base font-bold text-white hover:text-white/85 active:scale-95 transition-all duration-200 cursor-pointer"
+              >
+                Voir les Promos
+              </button>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
-            Explorez notre collection tendance & tech.
-          </h1>
-          <p className="text-indigo-100 text-sm sm:text-base leading-relaxed">
-            Profitez des meilleurs produits sélectionnés avec soin via FakeStore API. Filtrez, découvrez les fiches détaillées et gérez votre panier en temps réel !
-          </p>
+
+          {/* Colonne de droite : Composition visuelle des produits */}
+          <div className="lg:col-span-5 relative flex items-center justify-center lg:justify-end">
+            <div className="relative w-full max-w-[400px] sm:max-w-[440px] flex items-center justify-center">
+              {/* Image détourée fidèle à la maquette */}
+              <img
+                src="/hero-products.png"
+                alt="Produits phares StoreMaster : Casque audio, Smartwatch et Sac à dos Fjallraven"
+                className="relative z-10 w-full h-auto object-contain select-none drop-shadow-xl hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          </div>
         </div>
 
-        {/* Feature badges */}
-        <div className="mt-8 pt-6 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-medium text-indigo-100">
-          <div className="flex items-center gap-2">
-            <Truck className="w-4 h-4 text-indigo-300" />
+        {/* Bandeau d'engagements en bas */}
+        <div className="mt-10 pt-6 border-t border-white/20 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs sm:text-sm font-medium text-white/90 relative z-10">
+          <div className="flex items-center gap-2.5">
+            <Truck className="w-4 h-4 text-white flex-shrink-0" />
             <span>Livraison gratuite dès 50 €</span>
           </div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-indigo-300" />
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck className="w-4 h-4 text-white flex-shrink-0" />
             <span>Paiement sécurisé garanti</span>
           </div>
-          <div className="flex items-center gap-2">
-            <Headphones className="w-4 h-4 text-indigo-300" />
+          <div className="flex items-center gap-2.5">
+            <Headphones className="w-4 h-4 text-white flex-shrink-0" />
             <span>Service client disponible 24/7</span>
           </div>
         </div>
-
-        {/* Decorative circle */}
-        <div className="absolute -right-16 -bottom-16 w-80 h-80 bg-white/5 rounded-full blur-2xl pointer-events-none" />
       </section>
 
-      {/* Barre de Recherche et Filtres (F2) */}
-      <SearchBar
-        searchTerm={searchTerm}
-        onSearchChange={setSearchTerm}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-        categories={categories}
-        sortBy={sortBy}
-        onSortChange={setSortBy}
-        totalResults={filteredProducts.length}
-      />
+      {/* Barre de Recherche et Filtres (F2) avec ancre pour le scroll */}
+      <div id="catalogue-section">
+        <SearchBar
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+          categories={categories}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
+          totalResults={filteredProducts.length}
+        />
+      </div>
 
       {/* État de chargement (F1) */}
       {isLoading && <Loader type="skeleton" count={8} />}
