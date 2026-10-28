@@ -22,9 +22,6 @@ export default function Navbar() {
                 <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-gray-900 via-indigo-950 to-gray-800 bg-clip-text text-transparent">
                   Store<span className="text-indigo-600">Master</span>
                 </span>
-                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-100">
-                  React
-                </span>
               </div>
               <p className="text-[11px] text-gray-500 font-medium hidden sm:block -mt-0.5">
                 Catalogue E-Commerce
