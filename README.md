@@ -1,110 +1,144 @@
-# 🛍️ StoreMaster React
+# StoreMaster React
 
-Application Single Page (SPA) e-commerce complète développée avec **React 18**, **Vite**, **Tailwind CSS**, **React Router v6** et l'API publique **FakeStore API**.
+Application Single Page (SPA) e-commerce concue et developpee en mars 2026 dans le cadre de l'apprentissage approfondi de la bibliotheque React.
 
-Ce projet a été conçu selon le **Cahier des Charges Fonctionnel & Technique** pour maîtriser en profondeur les concepts clés de l'écosystème React moderne.
-
----
-
-## 🚀 Fonctionnalités implémentées
-
-### 1. 📦 Exploration du Catalogue (F1)
-- Récupération asynchrone des données via `fetch` au montage du composant (`useEffect`).
-- Indicateur de chargement visuel avec skeleton loading (`Loader.jsx`).
-- Gestion robuste des erreurs réseau avec interface de repli et bouton "Réessayer".
-- Rendu réactif dans une grille CSS responsive via `ProductList` et `ProductCard` avec des clés uniques (`key={product.id}`).
-
-### 2. 🔍 Recherche et Filtrage Multi-critères (F2)
-- Barre de recherche textuelle réactive (`searchTerm`) filtrant sur les titres et descriptions.
-- Filtres par catégories dynamiques issues de l'API (Vêtements Homme, Femme, Bijoux, Électronique).
-- Tri dynamique des résultats (prix croissant/décroissant, notes, ordre alphabétique).
-- Calcul dynamique en mémoire sans requêtes API superflues avec `useMemo`.
-
-### 3. 📄 Fiche Produit Détaillée (F3)
-- Routage dynamique `/product/:id` avec `useParams()`.
-- Navigation fluide sans rechargement de page via `<Link>`.
-- Image haute résolution, note moyenne avec avis clients, description complète et sélecteur de quantité.
-- Fil d'Ariane et bouton retour interactif.
-
-### 4. 🛒 Gestion Globale du Panier (F4 - `CartContext`)
-- État global partagé via React Context (`CartContext.jsx`) et le hook personnalisé `useCart()`, éliminant le "prop drilling".
-- **Ajout au panier** : incrémentation immuable si l'article existe déjà, ou ajout avec quantité initiale.
-- **Modification des quantités** : boutons `+` et `-`, avec suppression automatique si la quantité tombe à 0.
-- **Suppression unitaire** via `.filter()`.
-- **Badge dynamique dans la Navbar** calculant le total d'articles cumulés en temps réel avec `.reduce()`.
-- **Calcul du sous-total et du montant total** avec seuil de livraison offerte.
-- Modal de validation de commande simulant l'achat et réinitialisant le panier.
-
-### 5. 💾 Persistance des Données (F5 - LocalStorage)
-- Synchronisation automatique du panier avec `localStorage` à chaque mise à jour via un `useEffect` dédié.
-- Restauration de l'état au démarrage / rafraîchissement (F5) sans perte de données.
+Auteur : Lucien HAIKOU  
+Date : Mars 2026  
+Technologies : React 18, Vite, React Router v6, Tailwind CSS, Context API, FakeStore API
 
 ---
 
-## 📁 Arborescence du Projet
+## Presentation du projet
+
+StoreMaster est une application web d'e-commerce realisee selon un cahier des charges fonctionnel et technique rigoureux. L'objectif principal de ce projet, mene en mars 2026, est de consolider et de demontrer la maitrise des concepts fondamentaux et avances de React moderne :
+- Composants fonctionnels et JSX declaratif
+- Gestion d'etat local et global avec les Hooks standard (useState, useEffect, useMemo, useContext)
+- Creation de hooks personnalises (useCart)
+- Routage cote client sans rechargement de page avec React Router v6 et routes dynamiques
+- Consommation d'une API REST externe (FakeStore API) avec gestion asynchrone, indicateurs de chargement et traitement des erreurs
+- Persistance de donnees dans le navigateur avec le Web Storage (localStorage)
+- Interface responsive, moderne et accessible avec Tailwind CSS
+
+---
+
+## Fonctionnalites cles
+
+### 1. Exploration du catalogue (F1)
+- Recuperation asynchrone des donnees produits au montage du composant principal via fetch dans un useEffect.
+- Affichage d'un composant de chargement avec squelettes visuels (skeletons) pendant l'attente du reseau.
+- Gestion d'erreurs reseau avec possibilite de reessayer la requete en cas de defaillance.
+- Affichage des articles dans une grille responsive avec ProductList et ProductCard, utilisant des cles stables et uniques.
+
+### 2. Recherche et filtrage multi-criteres (F2)
+- Barre de recherche textuelle reactive controlee par l'etat React, filtrant en temps reel sur les titres et descriptions.
+- Filtrage par categories dynamiques issues de l'API (Vetements Homme, Vetements Femme, Bijoux, Electronique).
+- Tri avance des articles : par pertinence, par prix croissant ou decroissant, par notes moyennes des avis, ou par ordre alphabetique.
+- Calcul combine optimise en memoire grace au hook useMemo, sans requete reseau inutile.
+
+### 3. Fiche produit detaillee et routage dynamique (F3)
+- Navigation sans rechargement de page via le composant Link vers la route dynamique /product/:id.
+- Extraction de l'identifiant du produit via le hook useParams.
+- Requete specifique pour recuperer les details du produit selectionne.
+- Affichage de l'image agrandie, du fil d'Ariane, des notes et avis clients, de la description detaillee et du selecteur de quantite.
+
+### 4. Gestion globale du panier (F4 - CartContext)
+- Etat global du panier partage dans toute l'application grace a l'API Context (CartContext) et au hook useCart, supprimant le passage de proprietes en cascade (prop drilling).
+- Ajout au panier avec mise a jour immuable : incrementation de la quantite si le produit est deja present, ou creation d'une nouvelle ligne avec quantite initiale.
+- Ajustement des quantites (+ / -) avec suppression automatique de l'article des que la quantite atteint zero.
+- Suppression manuelle d'un article a l'aide de filter.
+- Reinitialisation complete du panier (vider le panier).
+- Calcul dynamique du nombre total d'articles et du montant cumule a l'aide de la methode reduce.
+- Badge dynamique dans la barre de navigation mis a jour instantanement a chaque interaction.
+- Indicateur visuel d'eligibilite a la livraison offerte et formulaire modal de simulation de commande.
+
+### 5. Persistance locale des donnees (F5 - LocalStorage)
+- Initialisation paresseuse de l'etat du panier a partir des donnees stockees dans le localStorage lors de l'ouverture ou du rafraichissement de la page (F5).
+- Synchronisation automatique et systematique a chaque mutation du panier par le biais d'un hook useEffect dedie.
+
+---
+
+## Architecture du projet
 
 ```
-storemaster/
+storemaster-react/
 ├── public/
-│   └── favicon.svg              # Logo et icône de l'application
+│   ├── favicon.svg              # Favicon vectoriel de l'application
+│   ├── hero-illustration.png    # Composition graphique brute
+│   └── hero-products.png        # Visuel detoure des produits phares
 ├── src/
-│   ├── components/              # Composants modulaires et réutilisables
-│   │   ├── CartItem.jsx         # Ligne de produit du panier (contrôle quantité & suppression)
-│   │   ├── Loader.jsx           # Spinner & Skeletons animés
-│   │   ├── Navbar.jsx           # En-tête avec navigation et badge réactif
-│   │   ├── ProductCard.jsx      # Carte produit individuelle avec note & bouton d'ajout
-│   │   ├── ProductList.jsx      # Grille responsive de cartes
-│   │   └── SearchBar.jsx        # Recherche texte, tri & filtres par catégories
+│   ├── components/              # Composants UI modulaires et reutilisables
+│   │   ├── CartItem.jsx         # Ligne du panier avec ajustement de quantite
+│   │   ├── Loader.jsx           # Spinner et squelettes d'attente animes
+│   │   ├── Navbar.jsx           # En-tete de navigation et badge reactif
+│   │   ├── ProductCard.jsx      # Carte individuelle de produit
+│   │   ├── ProductList.jsx      # Grille adaptative des articles
+│   │   └── SearchBar.jsx        # Recherche texte, tri et boutons de categories
 │   ├── context/
-│   │   └── CartContext.jsx      # CartProvider & hook useCart avec synchronisation localStorage
-│   ├── pages/                   # Vues associées aux routes
-│   │   ├── CartPage.jsx         # Page récapitulative du panier & commande
-│   │   ├── HomePage.jsx         # Page d'accueil avec catalogue & hero banner
-│   │   ├── NotFound.jsx         # Page d'erreur 404
-│   │   └── ProductDetail.jsx    # Page fiche produit détaillée
+│   │   └── CartContext.jsx      # CartProvider et custom hook useCart avec localStorage
+│   ├── pages/                   # Vues associees aux routes de l'application
+│   │   ├── CartPage.jsx         # Page de gestion du panier et validation d'achat
+│   │   ├── HomePage.jsx         # Page d'accueil avec hero banner et catalogue
+│   │   ├── NotFound.jsx         # Page 404 pour les routes inconnues
+│   │   └── ProductDetail.jsx    # Page de details pour un produit specifique
 │   ├── services/
-│   │   └── api.js               # Fonctions d'appels HTTP centralisées
-│   ├── App.jsx                  # Configuration des routes et mise en page globale
-│   ├── index.css                # Directives Tailwind CSS et styles globaux
-│   └── main.jsx                 # Point d'entrée React 18 avec CartProvider & BrowserRouter
-├── .env                         # Variables d'environnement (VITE_API_URL)
-├── .gitignore                   # Fichiers exclus du versionnement
-├── index.html                   # Document HTML racine
-├── package.json                 # Scripts et dépendances
-├── postcss.config.js            # Configuration PostCSS pour Tailwind
-├── tailwind.config.js           # Configuration Tailwind CSS
-└── vite.config.js               # Configuration du bundler Vite (port 3000)
+│   │   └── api.js               # Centralisation des requetes HTTP vers FakeStore API
+│   ├── App.jsx                  # Configuration du routage et gabarit general
+│   ├── index.css                # Directives Tailwind et styles globaux
+│   └── main.jsx                 # Point d'entree de l'application React avec BrowserRouter
+├── .env                         # Variables d'environnement (URL de l'API)
+├── .gitignore                   # Fichiers exclus du suivi de version
+├── index.html                   # Fichier HTML racine
+├── package.json                 # Dependances et scripts de commande
+├── postcss.config.js            # Configuration du processeur CSS
+├── tailwind.config.js           # Parametrage des themes et utilitaires Tailwind
+└── vite.config.js               # Configuration du bundler Vite
 ```
 
 ---
 
-## 🛠️ Démarrage du Projet
+## Installation et execution locale
 
-### 1. Installation des dépendances
+### Pre-requis
+- Node.js (version 18 ou superieure recommandee)
+- npm (gestionnaire de paquets livre avec Node.js)
+
+### 1. Cloner le depot
+```bash
+git clone https://github.com/lhdev10/storemaster.git
+cd storemaster
+```
+
+### 2. Installer les dependances
 ```bash
 npm install
 ```
 
-### 2. Lancer le serveur de développement
+### 3. Lancer le serveur de developpement
 ```bash
 npm run dev
 ```
-L'application démarre sur [http://localhost:3000](http://localhost:3000).
+L'application est alors accessible a l'adresse : http://localhost:3000
 
-### 3. Compiler pour la production
+### 4. Compiler pour la production
 ```bash
 npm run build
 ```
-Les fichiers compilés et minifiés sont générés dans le dossier `dist/`.
+Les fichiers distribues, compiles et optimises sont generes dans le dossier `dist/`.
 
 ---
 
-## 🧪 Grille de Validation des Critères
+## Validation des criteres d'acceptation
 
-| Critère | Statut | Détail d'implémentation |
+| Critere technique | Etat | Description |
 | :--- | :---: | :--- |
-| **Navigation fluide** | ✅ Conforme | Navigation entre `/`, `/product/:id` et `/cart` sans rechargement de page |
-| **Persistance LocalStorage** | ✅ Conforme | Le rechargement F5 conserve l'intégralité des articles et quantités |
-| **Appels Asynchrones réels** | ✅ Conforme | FakeStore API avec skeletons de chargement et gestion d'erreurs |
-| **Immuabilité du State** | ✅ Conforme | Mises à jour avec `.map()`, `.filter()`, et décomposition `...` |
-| **Responsive Design** | ✅ Conforme | Grille Tailwind adaptative Mobile (1 col), Tablette (2-3 cols), Desktop (4 cols) |
+| Navigation fluide SPA | Conforme | Transition instantanee entre l'accueil, les fiches produits et le panier sans rechargement de page |
+| Persistance des donnees | Conforme | Les articles et quantites du panier sont conserves apres un rafraichissement navigateur (F5) |
+| Donnees asynchrones reelles | Conforme | Requetes HTTP vers FakeStore API avec indicateur visuel de chargement et gestion des erreurs |
+| Immuabilite du state | Conforme | Toutes les mises a jour de state utilisent des copies immutables via map, filter et destructuration |
+| Design responsive | Conforme | Interface optimisee pour mobiles, tablettes et ecrans de bureau avec classes Tailwind CSS |
+
+---
+
+## Licence
+
+Projet personnel concu a des fins pedagogiques par Lucien HAIKOU (Mars 2026).

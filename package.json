@@ -2,6 +2,8 @@
   "name": "storemaster-react",
   "private": true,
   "version": "1.0.0",
+  "description": "Application e-commerce Single Page Application realisee en mars 2026 pour l'apprentissage approfondi de React.",
+  "author": "Lucien HAIKOU",
   "type": "module",
   "scripts": {
     "dev": "vite",
